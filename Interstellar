@@ -51,6 +51,6 @@ rectangle(600, 660, 620, 720)
 rectangle(830, 660, 830, 720)
 rectangle(830, 660, 850, 720)
 
-
+print("Hello")
 
 run()
