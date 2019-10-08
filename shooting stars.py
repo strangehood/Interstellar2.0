@@ -12,6 +12,9 @@ x0 = 0
 y0 = 0
 x1 = 0
 y1 = 0
+rad = 0
+star_tail = None
+star_tail1 = None
 
 
 def star_generation():  # func generates random star
@@ -53,18 +56,33 @@ def star_generation():  # func generates random star
 
 
 def starfall():  # func moves random star
-    global x1, y1
-    star_tail = None
+    global x1, y1, rad, star_tail, star_tail1
+    boom = None
     x1 += xspeed
     y1 += yspeed
-    deleteObject(star_tail)
+
+    # star moving
+    if star_tail is not None:
+        deleteObject(star_tail)
     star_tail = line(x0, y0, x1, y1)
     moveObjectBy(star, xspeed, yspeed)
+    chance = r.randint(1, 20)
 
+    # star burst
+    if chance == 1:
+        if star_tail1 is not None:
+            deleteObject(star_tail1)
+        star_tail1 = line(x0, y0, x1, y1)
+        deleteObject(star)
+        deleteObject(star_tail)
+        deleteObject(boom)
+        star_generation()
+        x1 = x0
+        y1 = y0
 
 
 star_generation()
 x1 = x0
 y1 = y0
-onTimer(starfall, 100)
+onTimer(starfall, 200)
 run()
